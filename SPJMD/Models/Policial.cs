@@ -20,7 +20,11 @@ namespace SPJMD.Models
 
         [Display(Name = "GRADUAÇÃO")]
         public PostGrad Graduacao { get; set; }
+
+        [Display(Name = "NOME")]
         public string Nome { get; set; }
+
+        [Display(Name = "STATUS")]
         public QualificacaoEnvolvido Status { get; set; }
         //public ICollection<IPM> IPMs { get; set; } = new List<IPM>();
 

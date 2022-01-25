@@ -1,0 +1,59 @@
+﻿
+@model SPJMD.Models.ViewModels.ModeloPostGrad
+
+@{
+    ViewData["Title"] = "Novo";
+    
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Policial Militar</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Policial.Re" class="form-label mt-3"></label>
+                <input asp-for="Policial.Re" class="form-control" />
+                <span asp-validation-for="Policial.Re" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Policial.Digito" class="form-label mt-3"></label>
+                <input asp-for="Policial.Digito" class="form-control" />
+                <span asp-validation-for="Policial.Digito" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Policial.Graduacao" class="form-label mt-3"></label>
+                <select asp-for="Policial.Graduacao" asp-items="Html.GetEnumSelectList<SPJMD.Models.Enums.PostGrad>()"
+                        class="form-select">
+                    <option selected="selected" value="">Selecionar</option>
+                </select>
+                <span asp-validation-for="Policial.Graduacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Policial.Nome" class="form-label mt-3"></label>
+                <input asp-for="Policial.Nome" class="form-control" />
+                <span asp-validation-for="Policial.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Policial.Status" class="form-label mt-3"></label>
+                <select asp-for="Policial.Status" asp-items="Html.GetEnumSelectList<SPJMD.Models.Enums.QualificacaoEnvolvido>()"
+                        class="form-select ">
+                    <option>Selecionar</option>
+                </select>
+                <span asp-validation-for="Policial.Status" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Retornar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

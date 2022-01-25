@@ -3,7 +3,7 @@
 
 namespace SPJMD.Models.Enums
 {
-    public enum Posto
+    public enum Posto : int
     {
         [Display(Name = "Cel PM")]
         Cel = 0,

@@ -14,6 +14,6 @@ namespace SPJMD.Data
         {
         }
 
-        public DbSet<SPJMD.Models.Investigado> Investigado { get; set; }
+        public DbSet<SPJMD.Models.Policial> Policial { get; set; }
     }
 }

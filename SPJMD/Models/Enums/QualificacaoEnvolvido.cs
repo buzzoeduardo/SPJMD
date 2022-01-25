@@ -1,7 +1,7 @@
 ﻿
 namespace SPJMD.Models.Enums
 {
-    public enum QualificacaoEnvolvido
+    public enum QualificacaoEnvolvido : int
     {
         Investigado = 0,
         Sindicado = 1,

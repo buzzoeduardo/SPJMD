@@ -7,22 +7,31 @@ using System.Threading.Tasks;
 
 namespace SPJMD.Models
 {
-    public class Investigado
+    public class Policial
     {
+        
+        public int Id { get; set; }
+
         [Display(Name = "RE")]
-        public int Id { get; set; }       
+        public int Re { get; set; }
+
+        [Display(Name = "DIG")]        
         public string Digito { get; set; }
-        public Grad Graduacao { get; set; }
+
+        [Display(Name = "GRADUAÇÃO")]
+        public PostGrad Graduacao { get; set; }
         public string Nome { get; set; }
         public QualificacaoEnvolvido Status { get; set; }
+        //public ICollection<IPM> IPMs { get; set; } = new List<IPM>();
 
-        public Investigado()
+        public Policial()
         {
         }
 
-        public Investigado(int id, string digito, Grad graduacao, string nome, QualificacaoEnvolvido status)
+        public Policial(int id, int re, string digito, PostGrad graduacao, string nome, QualificacaoEnvolvido status)
         {
-            Id = id;            
+            Id = id;
+            Re = re;
             Digito = digito;
             Graduacao = graduacao;
             Nome = nome;

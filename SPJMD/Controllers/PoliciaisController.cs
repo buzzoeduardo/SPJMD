@@ -10,22 +10,22 @@ using SPJMD.Models;
 
 namespace SPJMD.Controllers
 {
-    public class InvestigadosController : Controller
+    public class PoliciaisController : Controller
     {
         private readonly SPJMDContext _context;
 
-        public InvestigadosController(SPJMDContext context)
+        public PoliciaisController(SPJMDContext context)
         {
             _context = context;
         }
 
-        // GET: Investigados
+        // GET: Policiais
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Investigado.ToListAsync());
+            return View(await _context.Policial.ToListAsync());
         }
 
-        // GET: Investigados/Details/5
+        // GET: Policiais/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace SPJMD.Controllers
                 return NotFound();
             }
 
-            var investigado = await _context.Investigado
+            var policial = await _context.Policial
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (investigado == null)
+            if (policial == null)
             {
                 return NotFound();
             }
 
-            return View(investigado);
+            return View(policial);
         }
 
-        // GET: Investigados/Create
+        // GET: Policiais/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Investigados/Create
+        // POST: Policiais/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Digito,Graduacao,Nome,Status")] Investigado investigado)
+        public async Task<IActionResult> Create([Bind("Id,Re,Digito,Graduacao,Nome,Status")] Policial policial)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(investigado);
+                _context.Add(policial);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(investigado);
+            return View(policial);
         }
 
-        // GET: Investigados/Edit/5
+        // GET: Policiais/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace SPJMD.Controllers
                 return NotFound();
             }
 
-            var investigado = await _context.Investigado.FindAsync(id);
-            if (investigado == null)
+            var policial = await _context.Policial.FindAsync(id);
+            if (policial == null)
             {
                 return NotFound();
             }
-            return View(investigado);
+            return View(policial);
         }
 
-        // POST: Investigados/Edit/5
+        // POST: Policiais/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Digito,Graduacao,Nome,Status")] Investigado investigado)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Re,Digito,Graduacao,Nome,Status")] Policial policial)
         {
-            if (id != investigado.Id)
+            if (id != policial.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace SPJMD.Controllers
             {
                 try
                 {
-                    _context.Update(investigado);
+                    _context.Update(policial);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InvestigadoExists(investigado.Id))
+                    if (!PolicialExists(policial.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace SPJMD.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(investigado);
+            return View(policial);
         }
 
-        // GET: Investigados/Delete/5
+        // GET: Policiais/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace SPJMD.Controllers
                 return NotFound();
             }
 
-            var investigado = await _context.Investigado
+            var policial = await _context.Policial
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (investigado == null)
+            if (policial == null)
             {
                 return NotFound();
             }
 
-            return View(investigado);
+            return View(policial);
         }
 
-        // POST: Investigados/Delete/5
+        // POST: Policiais/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var investigado = await _context.Investigado.FindAsync(id);
-            _context.Investigado.Remove(investigado);
+            var policial = await _context.Policial.FindAsync(id);
+            _context.Policial.Remove(policial);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool InvestigadoExists(int id)
+        private bool PolicialExists(int id)
         {
-            return _context.Investigado.Any(e => e.Id == id);
+            return _context.Policial.Any(e => e.Id == id);
         }
     }
 }

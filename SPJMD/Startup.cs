@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SPJMD.Data;
 
+
+
 namespace SPJMD
 {
     public class Startup
@@ -27,14 +29,18 @@ namespace SPJMD
         {
             services.AddControllersWithViews();
 
+
+            string mySqlConnectionStr = Configuration.GetConnectionString("SPJMDContext");
             services.AddDbContext<SPJMDContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("SPJMDContext")));
+            options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr))); 
         }
+        
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment()) 
             {
                 app.UseDeveloperExceptionPage();
             }

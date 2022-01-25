@@ -1,27 +1,31 @@
-﻿@model IEnumerable<SPJMD.Models.Investigado>
+﻿@model IEnumerable<SPJMD.Models.Policial>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Policiais Militares";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="form-group">
+    <a asp-action="Create" class="btn btn-primary">Novo</a>   
+</div>
+<br />
+<table class="table bg-info bg-opacity-25">
     <thead>
         <tr>
-            <th>
+            <th class="tamanholetra">
+                @Html.DisplayNameFor(model => model.Re)
+            </th>
+            <th class="tamanholetra">
                 @Html.DisplayNameFor(model => model.Digito)
             </th>
-            <th>
+            <th class="tamanholetra">
                 @Html.DisplayNameFor(model => model.Graduacao)
             </th>
-            <th>
+            <th class="tamanholetra">
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
-            <th>
+            <th class="tamanholetra">
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th></th>
@@ -30,6 +34,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Re)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Digito)
             </td>

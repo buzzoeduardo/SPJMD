@@ -22,6 +22,7 @@ namespace SPJMD.Controllers
         {
             //Essa operação retorna uma lista de Oficiais               
             var lista = _oficialService.FindAll();
+            
             return View(lista); // Passo a lista criada como argumento da View
             /* Essa lista que nós implementamos aqui é o objeto @model que vamos criar na página
              Index da nossa pasta Oficiais. */

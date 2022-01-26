@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SPJMD.Data;
+using SPJMD.Services;
 
 
 
@@ -35,6 +36,7 @@ namespace SPJMD
             options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
             services.AddScoped<PopularService>();
+            services.AddScoped<OficialService>();
         }
         
 

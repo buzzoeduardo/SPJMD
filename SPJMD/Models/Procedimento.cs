@@ -18,5 +18,30 @@ namespace SPJMD.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Data { get; set; }
         public Origem Origem { get; set; }
+        public Oficial Oficial { get; set; }
+
+        public ICollection<Policial> Policiais { get; set; } = new List<Policial>();
+
+        public Procedimento()
+        {
+        }
+
+        public Procedimento(int id, TiposProcedimentos tipoProcedimento, string opm, int numero, string prefixo, DateTime data, Origem origem, Oficial oficial)
+        {
+            Id = id;
+            TipoProcedimento = tipoProcedimento;
+            Opm = opm;
+            Numero = numero;
+            Prefixo = prefixo;
+            Data = data;
+            Origem = origem;
+            Oficial = oficial;
+        }
+
+        //Total de Policiais
+        public int TotalPM()
+        {
+            return Policiais.Count();
+        }
     }
 }

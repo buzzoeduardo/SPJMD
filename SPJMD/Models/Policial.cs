@@ -36,7 +36,9 @@ namespace SPJMD.Models
         [Required(ErrorMessage = "Selecione uma Condição válida")]
         [Display(Name = "CONDIÇÃO")]
         public QualificacaoEnvolvido Status { get; set; }
-        //public ICollection<IPM> IPMs { get; set; } = new List<IPM>();
+
+        public ICollection<Procedimento> Procedimentos { get; set; } = new List<Procedimento>();
+
 
         public Policial()
         {
@@ -50,6 +52,26 @@ namespace SPJMD.Models
             Graduacao = graduacao;
             Nome = nome;
             Status = status;
+        }
+
+        //Total de Procedimentos
+        public int TotalProcPM()
+        {
+            return Procedimentos.Count();
+        }
+
+        //Tipos de Procedimentos
+
+        public void TiposProcPM()
+        {
+            var filtro = Procedimentos.Where(x => x.TipoProcedimento != null).ToList();
+            foreach (var tipo in filtro)
+            {
+                Console.WriteLine(tipo.TipoProcedimento 
+                    + " - " + tipo.Opm + "-" + tipo.Numero 
+                    + "/" + tipo.Prefixo + "/" 
+                    + tipo.Data);
+            }
         }
 
     }

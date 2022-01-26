@@ -12,19 +12,27 @@ namespace SPJMD.Models
         
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "RE Obrigatório.")]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "O {0} deve ter conter {1} dígitos.")]
         [Display(Name = "RE")]
         public int Re { get; set; }
 
+        [Required(ErrorMessage = "Dígito Obrigatório.")]
+        [StringLength(1, MinimumLength = 1)]
         [Display(Name = "DIG")]        
-        public string Digito { get; set; }
+        public char Digito { get; set; }
 
+        [Required(ErrorMessage = "Selecione uma Graduação válida")]
         [Display(Name = "GRADUAÇÃO")]
         public PostGrad Graduacao { get; set; }
 
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "O {0} deve ter conter no mínimo {2} dígitos.")]
+        [Required(ErrorMessage = "Nome Obrigatório.")] 
         [Display(Name = "NOME")]
         public string Nome { get; set; }
 
-        [Display(Name = "STATUS")]
+        [Required(ErrorMessage = "Selecione uma Condição válida")]
+        [Display(Name = "CONDIÇÃO")]
         public QualificacaoEnvolvido Status { get; set; }
         //public ICollection<IPM> IPMs { get; set; } = new List<IPM>();
 
@@ -32,7 +40,7 @@ namespace SPJMD.Models
         {
         }
 
-        public Policial(int id, int re, string digito, PostGrad graduacao, string nome, QualificacaoEnvolvido status)
+        public Policial(int id, int re, char digito, PostGrad graduacao, string nome, QualificacaoEnvolvido status)
         {
             Id = id;
             Re = re;

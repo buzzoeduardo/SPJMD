@@ -13,7 +13,7 @@ namespace SPJMD.Controllers
     public class PoliciaisController : Controller
     {
         private readonly SPJMDContext _context;
-
+        
         public PoliciaisController(SPJMDContext context)
         {
             _context = context;
@@ -55,7 +55,7 @@ namespace SPJMD.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Re,Digito,Graduacao,Nome,Status")] Policial policial)
-        {
+        {            
             if (ModelState.IsValid)
             {
                 _context.Add(policial);

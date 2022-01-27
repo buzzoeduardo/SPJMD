@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SPJMD.Models;
 using SPJMD.Services;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,17 @@ namespace SPJMD.Controllers
              Index da nossa pasta Oficiais. */
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Oficial oficial)
+        {
+            _oficialService.Insert(oficial);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

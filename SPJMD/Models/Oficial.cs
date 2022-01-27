@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using SPJMD.Models.Enums;
+using SPJMD.Data;
 
 namespace SPJMD.Models
 {
@@ -59,22 +60,20 @@ namespace SPJMD.Models
             Status = status;
         }
 
+        int qtdProcedimentos = 0;
         //Adicionar um Procedimento na lista de Procedimentos
         public void AddProced(Procedimento proc)
         {
             Procedimentos.Add(proc);
+            qtdProcedimentos++;
         }
 
         //Removendo um Procedimento da lista de Procedimentos
         public void RenoveProc(Procedimento proc)
         {
             Procedimentos.Remove(proc);
+            qtdProcedimentos--;
         }
-
-        //Total de Procedimentos
-        public int TotalProc()
-        {
-            return Procedimentos.Count();
-        }
+        
     }
 }

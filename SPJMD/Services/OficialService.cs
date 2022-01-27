@@ -26,5 +26,10 @@ namespace SPJMD.Services
             return _context.Oficial.ToList();
             
         }
+        public void Insert(Oficial obj)
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
     }
 }

@@ -38,6 +38,8 @@ namespace SPJMD.Data
 
             Procedimento pc1 = new Procedimento(default, TiposProcedimentos.IPM, "9BPMI", 012, "13", new DateTime(2022, 01, 10), Origem.Cmt, o2);
             Procedimento pc2 = new Procedimento(default, TiposProcedimentos.IP, "9BPMI", 004, "300", new DateTime(2022, 01, 01), Origem.Corregedoria, o1);
+            Procedimento pc3 = new Procedimento(default, TiposProcedimentos.Sindicancia, "9BPMI", 10, "13", new DateTime(2022, 01, 10), Origem.Cmt, o1);
+            Procedimento pc4 = new Procedimento(default, TiposProcedimentos.Apfd, "9BPMI", 5, "200", new DateTime(2022, 01, 01), Origem.Corregedoria, o1);
 
             //Adicionando os objetos acima no Banco de Dados usando o EntitieFramework.
 
@@ -45,7 +47,7 @@ namespace SPJMD.Data
 
             _context.Oficial.AddRange(o1, o2);
 
-            _context.Procedimento.AddRange(pc1, pc2);
+            _context.Procedimento.AddRange(pc1, pc2, pc3, pc4);
 
             //Efetivando as alterações feitas
 

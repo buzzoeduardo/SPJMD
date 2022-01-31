@@ -37,6 +37,8 @@ namespace SPJMD
 
             services.AddScoped<PopularService>();
             services.AddScoped<OficialService>();
+            services.AddScoped<ServicePolicial>();
+
         }
         
 

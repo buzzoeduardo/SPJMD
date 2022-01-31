@@ -11,7 +11,7 @@ namespace SPJMD.Models
     public class Oficial
     {
         public int Id { get; set; }
-
+        [RegularExpression(@"[0-9]*$")]
         [Required(ErrorMessage = "RE Obrigatório.")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "O {0} deve ter conter {1} dígitos.")]
         [Display(Name = "RE")]
@@ -23,7 +23,7 @@ namespace SPJMD.Models
         public string Digito { get; set; }
 
         [Required(ErrorMessage = "Selecione uma Graduação válida")]
-        [Display(Name = "GRADUAÇÃO")]
+        [Display(Name = "POSTO")]
         public Posto Posto { get; set; }
 
         [StringLength(100, MinimumLength = 3, ErrorMessage = "O {0} deve ter conter no mínimo {2} dígitos.")]

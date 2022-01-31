@@ -13,6 +13,7 @@ namespace SPJMD.Models
         
         public int Id { get; set; }
 
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Somente números são permitidos.")]
         [Required(ErrorMessage = "RE Obrigatório.")]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "O {0} deve ter conter {1} dígitos.")]
         [Display(Name = "RE")]
@@ -37,7 +38,7 @@ namespace SPJMD.Models
         [Display(Name = "CONDIÇÃO")]
         public QualificacaoEnvolvido Status { get; set; }
 
-        public ICollection<Procedimento> Procedimentos { get; set; } = new List<Procedimento>();
+        public ICollection<Procedimento> Procedimentos { get; set; } = new List<Procedimento>();       
 
 
         public Policial()
@@ -74,5 +75,10 @@ namespace SPJMD.Models
             }
         }
 
+
+        public override string ToString()
+        {
+            return Graduacao + " " + Re + "-" + Digito + "  " + Nome;
+        }              
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,147 +8,197 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SPJMD.Data;
 using SPJMD.Models;
+using SPJMD.Models.ViewModels;
+using SPJMD.Services;
+using SPJMD.Services.Exceptions;
 
 namespace SPJMD.Controllers
 {
     public class PoliciaisController : Controller
     {
         private readonly SPJMDContext _context;
+        private readonly ServicePolicial _servicePolicial;
         
-        public PoliciaisController(SPJMDContext context)
+        public PoliciaisController(SPJMDContext context, ServicePolicial servicePolicial)
         {
             _context = context;
-        }
+            _servicePolicial = servicePolicial;
+        }        
 
-        // GET: Policiais
+      
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Policial.ToListAsync());
-        }
+            var lista = await _servicePolicial.RetornarTodos();
+            return View(lista);           
+        }       
 
-        // GET: Policiais/Details/5
+        //----------------------------------------------------------------
+        //Detalhes
+       
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id inexistente." });
             }
 
-            var policial = await _context.Policial
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var policial = await _servicePolicial.IdExistente(id.Value);
+
             if (policial == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id inexistente." });
             }
 
             return View(policial);
         }
 
-        // GET: Policiais/Create
+        //----------------------------------------------------------------
+        //Criar
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Policiais/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Re,Digito,Graduacao,Nome,Status")] Policial policial)
-        {            
-            if (ModelState.IsValid)
+
+        public IActionResult Create(Policial policial)
+        {
+            try
             {
-                _context.Add(policial);
-                await _context.SaveChangesAsync();
+                _servicePolicial.Insert(policial);
                 return RedirectToAction(nameof(Index));
             }
-            return View(policial);
+
+            catch (ExceNaoEncontrada e)
+            {
+                return RedirectToAction(nameof(Error), new { mensagem = e.Message });
+            }
+           
         }
 
-        // GET: Policiais/Edit/5
+
+        //----------------------------------------------------------------
+        //Editar
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido." });
             }
 
-            var policial = await _context.Policial.FindAsync(id);
+            var policial = await _servicePolicial.IdExistente(id.Value);
             if (policial == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id inexistente." });
             }
+             
             return View(policial);
         }
 
-        // POST: Policiais/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Re,Digito,Graduacao,Nome,Status")] Policial policial)
         {
             if (id != policial.Id)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Os Id não correspendem." });
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(policial);
-                    await _context.SaveChangesAsync();
+                    try
+                    {
+                        _servicePolicial.Update(policial);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    catch (ExceNaoEncontrada e)
+                    {
+                        return RedirectToAction(nameof(Error), new { mensagem = e.Message });
+                    }
+                    
+                   
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (ExceNaoEncontrada e)
                 {
                     if (!PolicialExists(policial.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Error), new { message = e.Message });
                     }
                     else
                     {
                         throw;
                     }
                 }
+                catch (ExcBancoDados e)
+                {
+                    return RedirectToAction(nameof(Error), new { message = e.Message });
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(policial);
         }
 
-        // GET: Policiais/Delete/5
+
+        //----------------------------------------------------------------
+        //Deletar
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id inexistente." });
             }
 
-            var policial = await _context.Policial
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var policial = await _servicePolicial.IdExistente(id.Value);
+            
             if (policial == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id inexistente." });
             }
 
             return View(policial);
         }
 
-        // POST: Policiais/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var policial = await _context.Policial.FindAsync(id);
-            _context.Policial.Remove(policial);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            _servicePolicial.Remover(id);
+            return RedirectToAction(nameof(Index));  
         }
+
+        //----------------------------------------------------------------
 
         private bool PolicialExists(int id)
         {
             return _context.Policial.Any(e => e.Id == id);
+        }
+
+
+
+        public async Task<IActionResult> BuscaSimples(string re)
+        {           
+            var resultado = await _servicePolicial.BuscaPorReAsync(re);
+            return View(resultado);
+        }
+       
+        public IActionResult Error(string mensagem)
+        {
+            var modeloErro = new ErrorViewModel
+            {
+                Message = mensagem,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(modeloErro);
         }
     }
 }

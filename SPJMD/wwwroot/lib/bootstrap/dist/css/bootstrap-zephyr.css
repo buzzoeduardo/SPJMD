@@ -4423,7 +4423,7 @@ fieldset:disabled .btn {
   overflow-y: auto;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 1000px) {
   .navbar-expand-sm {
     -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
@@ -8396,6 +8396,10 @@ fieldset:disabled .btn {
   text-decoration: line-through !important;
 }
 
+.text-decoration-line-upper {
+   text-decoration: overline !important;   
+}
+
 .text-lowercase {
   text-transform: lowercase !important;
 }
@@ -8682,7 +8686,7 @@ fieldset:disabled .btn {
   visibility: hidden !important;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 1000px) {
   .float-sm-start {
     float: left !important;
   }
@@ -9071,6 +9075,9 @@ fieldset:disabled .btn {
   }
   .ms-sm-5 {
     margin-left: 3rem !important;
+  }
+  .ms-sm-6 {
+      margin-left: 4rem !important;
   }
   .ms-sm-auto {
     margin-left: auto !important;
@@ -11602,4 +11609,33 @@ thead th {
 .tamanholetra {
     font-size: 1.3em;
     font-style: oblique
+}
+.letraitalica{
+    font-size: 0.8em;
+    font-style: oblique    
+}
+
+@media (max-width: 1000px) {
+    .letraitalica {
+        font-size: 0.6em;
+        font-style: oblique
+    }
+}
+@media (max-width: 650px) {
+    .letraitalica {
+        font-size: 0.5em;
+        font-style: oblique
+    }
+}
+@media (max-width: 545px) {
+    .letraitalica {
+        font-size: 0.4em;
+        font-style: oblique
+    }
+}
+@media (max-width: 423px) {
+    .letraitalica {
+        font-size: 0.3em;
+        font-style: oblique
+    }
 }

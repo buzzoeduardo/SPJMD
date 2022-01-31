@@ -14,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-info bg-opacity-10 border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Gerenciador SPJMD</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Gerenciador - SPJMD</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -42,15 +42,14 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-5">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted bg-info bg-opacity-10">
-        <div class="container">
-            @ViewData["AnoAtual"]  -  BUZZO &copy; Developer <a asp-area="" asp-controller="Home" asp-action="Privacy"></a>
-        </div>
+    <footer class="border-top footer bg-info bg-opacity-10">       
+       
+        <div class="text-center text-muted "> @ViewData["AnoAtual"]  -  BUZZO &copy; Developer <a asp-area="" asp-controller="Home" asp-action="Privacy"></a></div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
